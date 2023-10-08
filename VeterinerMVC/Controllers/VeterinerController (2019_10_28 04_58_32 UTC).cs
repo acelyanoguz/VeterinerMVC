@@ -30,8 +30,6 @@ namespace VeterinerMVC.Controllers
                 item.title = takvim.Hayvan.HayvanAdi+" için randevu";
                 item.start = dates.ToString("yyyy-MM-dd");
                 item.end = dates.ToString("yyyy-MM-dd");
-                //item.color = dr["Color"].ToString();
-                //item.allDay = bool.Parse(dr["AllDay"].ToString());
                 eventItems.Add(item);
             }
 
