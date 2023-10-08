@@ -1,0 +1,43 @@
+﻿@model VeterinerMVC.Models.EntityFramework.Profil
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+
+    <title> Login</title>
+    
+</head>
+<body style="background-color:#D6EAF8;" > 
+    
+    <div class="container">
+
+
+        @Html.Raw(TempData["msg"])
+
+        @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+        {
+            <br /><br /><h1>KULLANICI GİRİŞ SAYFASI</h1>
+            <br />
+            <br /> <br /> <br /> <br />
+            <div class="form-group">
+                <label for="m=>m.KullaniciAdi">Kullanıcı Adı</label>
+                @Html.TextBoxFor(m => m.KullaniciAdi, new { @class = "form-control", placeholder = "Kullanıcı Adı" })
+            </div>
+            <div class="form-group">
+                <label for="m=>m.KullaniciSifre">Kullanıcı Şifre</label>
+                @Html.PasswordFor(m => m.KullaniciSifre, new { @class = "form-control", placeholder = "Parola" })
+            </div>
+            <button type="submit" class="btn btn-block btn-info">Giriş Yap</button>
+            <br />
+            <a href="YeniUyelik" class="btn btn-info">Üye Ol</a>
+        }
+    </div>
+</body>
+</html>

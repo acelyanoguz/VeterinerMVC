@@ -1,0 +1,47 @@
+﻿@model VeterinerMVC.Models.EntityFramework.Hayvan
+@{
+    ViewBag.Title = "YeniHasta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+    @Html.HiddenFor(m => m.KullaniciID, new { @Value = @Request.Params["KullaniciID"] })
+    @*<div>
+        <label>Müşteri ID</label>
+        <input type="text" class="form-control" name="MusteriID" />
+    </div>*@ 
+    <div>
+        <label>Hayvan Adı</label>
+        
+        @Html.TextBoxFor(m => m.HayvanAdi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.HayvanAdi, "", new { @style = "color:red" })
+    </div>
+    <div>
+        <br><label>Hayvan Cinsiyeti</label> <br>
+        @Html.ValidationMessageFor(m => m.Cinsiyeti, "", new { @style = "color:red" })
+        <input type="radio" name="Cinsiyeti" value="erkek"> erkek <br>
+        <input type="radio" name="Cinsiyeti" value="dişi"> dişi
+    </div>
+    <div>
+        <label>Hayvan Türü</label>
+        @Html.ValidationMessageFor(m => m.HayvanTuru, "", new { @style = "color:red" })
+        <input type="text" class="form-control" name="HayvanTuru" />
+    </div>
+    <div>
+        <label>Hayvan Irkı</label>
+        <input type="text" class="form-control" name="HayvanIrki" />
+        @Html.ValidationMessageFor(m => m.HayvanIrki, "", new { @style = "color:red" })
+    </div>
+    <div>
+        <label>Hayvan Yaşı</label>
+        <input type="text" class="form-control" name="HayvanYasi" />
+        @Html.ValidationMessageFor(m => m.HayvanYasi, "", new { @style = "color:red" })
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Hasta Ekle</button>
+        <br />
+
+    </div>
+</form>
+
+

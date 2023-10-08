@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HastaTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AsiTakvimi">
+          <Key>
+            <PropertyRef Name="AsiID" />
+          </Key>
+          <Property Name="AsiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HayvanID" Type="int" />
+          <Property Name="YapilisTarihi" Type="datetime" />
+          <Property Name="TekrarTarihi" Type="datetime" />
+          <Property Name="KullaniciID" Type="int" />
+        </EntityType>
+        <EntityType Name="Hayvan">
+          <Key>
+            <PropertyRef Name="HayvanID" />
+          </Key>
+          <Property Name="HayvanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriID" Type="int" />
+          <Property Name="HayvanAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="HayvanTuru" Type="nvarchar" MaxLength="50" />
+          <Property Name="HayvanIrki" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cinsiyeti" Type="varchar" MaxLength="50" />
+          <Property Name="HayvanYasi" Type="int" />
+          <Property Name="KullaniciID" Type="int" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="MusteriID" />
+          </Key>
+          <Property Name="MusteriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" />
+          <Property Name="MusteriAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="MusteriSoyadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="TelNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adres" Type="text" />
+        </EntityType>
+        <EntityType Name="Profil">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="KullaniciSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="KullaniciMail" Type="varchar" MaxLength="50" />
+          <Property Name="KullaniciSifre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Randevular">
+          <Key>
+            <PropertyRef Name="RandevuID" />
+          </Key>
+          <Property Name="RandevuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HayvanID" Type="int" />
+          <Property Name="RandevuTarihi" Type="datetime" />
+          <Property Name="KullaniciID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TedaviEkle">
+          <Key>
+            <PropertyRef Name="TedaviID" />
+          </Key>
+          <Property Name="TedaviID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HayvanID" Type="int" />
+          <Property Name="HastalikAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="UygulananTedavi" Type="nvarchar" MaxLength="50" />
+          <Property Name="KullaniciID" Type="int" />
+        </EntityType>
+        <Association Name="FK_AsiTakvimi_Hayvan">
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="0..1" />
+          <End Role="AsiTakvimi" Type="Self.AsiTakvimi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="AsiTakvimi">
+              <PropertyRef Name="HayvanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsiTakvimi_Profil">
+          <End Role="Profil" Type="Self.Profil" Multiplicity="0..1" />
+          <End Role="AsiTakvimi" Type="Self.AsiTakvimi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="AsiTakvimi">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hayvan_Musteri">
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="MusteriID" />
+            </Principal>
+            <Dependent Role="Hayvan">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hayvan_Profil">
+          <End Role="Profil" Type="Self.Profil" Multiplicity="0..1" />
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Hayvan">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_Profil">
+          <End Role="Profil" Type="Self.Profil" Multiplicity="0..1" />
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Randevular_Hayvan">
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="0..1" />
+          <End Role="Randevular" Type="Self.Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="Randevular">
+              <PropertyRef Name="HayvanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Randevular_Profil">
+          <End Role="Profil" Type="Self.Profil" Multiplicity="0..1" />
+          <End Role="Randevular" Type="Self.Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Randevular">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TedaviEkle_Hayvan">
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="0..1" />
+          <End Role="TedaviEkle" Type="Self.TedaviEkle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="TedaviEkle">
+              <PropertyRef Name="HayvanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TedaviEkle_Profil">
+          <End Role="Profil" Type="Self.Profil" Multiplicity="0..1" />
+          <End Role="TedaviEkle" Type="Self.TedaviEkle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TedaviEkle">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HastaTakipModelStoreContainer">
+          <EntitySet Name="AsiTakvimi" EntityType="Self.AsiTakvimi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hayvan" EntityType="Self.Hayvan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteri" EntityType="Self.Musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profil" EntityType="Self.Profil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Randevular" EntityType="Self.Randevular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TedaviEkle" EntityType="Self.TedaviEkle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AsiTakvimi_Hayvan" Association="Self.FK_AsiTakvimi_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="AsiTakvimi" EntitySet="AsiTakvimi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsiTakvimi_Profil" Association="Self.FK_AsiTakvimi_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="AsiTakvimi" EntitySet="AsiTakvimi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hayvan_Musteri" Association="Self.FK_Hayvan_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Hayvan" EntitySet="Hayvan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hayvan_Profil" Association="Self.FK_Hayvan_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="Hayvan" EntitySet="Hayvan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_Profil" Association="Self.FK_Musteri_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="Musteri" EntitySet="Musteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Randevular_Hayvan" Association="Self.FK_Randevular_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="Randevular" EntitySet="Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Randevular_Profil" Association="Self.FK_Randevular_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="Randevular" EntitySet="Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TedaviEkle_Hayvan" Association="Self.FK_TedaviEkle_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="TedaviEkle" EntitySet="TedaviEkle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TedaviEkle_Profil" Association="Self.FK_TedaviEkle_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="TedaviEkle" EntitySet="TedaviEkle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HastaTakipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AsiTakvimi">
+          <Key>
+            <PropertyRef Name="AsiID" />
+          </Key>
+          <Property Name="AsiID" Type="Int32" Nullable="false" />
+          <Property Name="HayvanID" Type="Int32" />
+          <Property Name="YapilisTarihi" Type="DateTime" Precision="3" />
+          <Property Name="TekrarTarihi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Hayvan" Relationship="Self.FK_AsiTakvimi_Hayvan" FromRole="AsiTakvimi" ToRole="Hayvan" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <NavigationProperty Name="Profil" Relationship="HastaTakipModel.FK_AsiTakvimi_Profil" FromRole="AsiTakvimi" ToRole="Profil" />
+        </EntityType>
+        <EntityType Name="Hayvan">
+          <Key>
+            <PropertyRef Name="HayvanID" />
+          </Key>
+          <Property Name="HayvanID" Type="Int32" Nullable="false" />
+          <Property Name="MusteriID" Type="Int32" />
+          <Property Name="HayvanAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HayvanTuru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HayvanIrki" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cinsiyeti" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="HayvanYasi" Type="Byte" />
+          <NavigationProperty Name="AsiTakvimi" Relationship="Self.FK_AsiTakvimi_Hayvan" FromRole="Hayvan" ToRole="AsiTakvimi" />
+          <NavigationProperty Name="Musteri" Relationship="Self.FK_Hayvan_Musteri" FromRole="Hayvan" ToRole="Musteri" />
+          <NavigationProperty Name="Randevular" Relationship="Self.FK_Randevular_Hayvan" FromRole="Hayvan" ToRole="Randevular" />
+          <NavigationProperty Name="TedaviEkle" Relationship="Self.FK_TedaviEkle_Hayvan" FromRole="Hayvan" ToRole="TedaviEkle" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <NavigationProperty Name="Profil" Relationship="HastaTakipModel.FK_Hayvan_Profil" FromRole="Hayvan" ToRole="Profil" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="MusteriID" />
+          </Key>
+          <Property Name="MusteriID" Type="Int32" Nullable="false" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <Property Name="MusteriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Hayvan" Relationship="Self.FK_Hayvan_Musteri" FromRole="Musteri" ToRole="Hayvan" />
+          <NavigationProperty Name="Profil" Relationship="Self.FK_Musteri_Profil" FromRole="Musteri" ToRole="Profil" />
+          <Property Name="MusteriSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Profil">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KullaniciSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Musteri" Relationship="Self.FK_Musteri_Profil" FromRole="Profil" ToRole="Musteri" />
+          <NavigationProperty Name="AsiTakvimi" Relationship="HastaTakipModel.FK_AsiTakvimi_Profil" FromRole="Profil" ToRole="AsiTakvimi" />
+          <NavigationProperty Name="Hayvan" Relationship="HastaTakipModel.FK_Hayvan_Profil" FromRole="Profil" ToRole="Hayvan" />
+          <NavigationProperty Name="Randevular" Relationship="HastaTakipModel.FK_Randevular_Profil" FromRole="Profil" ToRole="Randevular" />
+          <NavigationProperty Name="TedaviEkle" Relationship="HastaTakipModel.FK_TedaviEkle_Profil" FromRole="Profil" ToRole="TedaviEkle" />
+        </EntityType>
+        <EntityType Name="Randevular">
+          <Key>
+            <PropertyRef Name="RandevuID" />
+          </Key>
+          <Property Name="RandevuID" Type="Int32" Nullable="false" />
+          <Property Name="HayvanID" Type="Int32" />
+          <Property Name="RandevuTarihi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Hayvan" Relationship="Self.FK_Randevular_Hayvan" FromRole="Randevular" ToRole="Hayvan" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <NavigationProperty Name="Profil" Relationship="HastaTakipModel.FK_Randevular_Profil" FromRole="Randevular" ToRole="Profil" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TedaviEkle">
+          <Key>
+            <PropertyRef Name="TedaviID" />
+          </Key>
+          <Property Name="TedaviID" Type="Int32" Nullable="false" />
+          <Property Name="HayvanID" Type="Int32" />
+          <Property Name="UygulananTedavi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hayvan" Relationship="Self.FK_TedaviEkle_Hayvan" FromRole="TedaviEkle" ToRole="Hayvan" />
+          <Property Name="HastalikAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <NavigationProperty Name="Profil" Relationship="HastaTakipModel.FK_TedaviEkle_Profil" FromRole="TedaviEkle" ToRole="Profil" />
+        </EntityType>
+        <Association Name="FK_AsiTakvimi_Hayvan">
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="0..1" />
+          <End Role="AsiTakvimi" Type="Self.AsiTakvimi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="AsiTakvimi">
+              <PropertyRef Name="HayvanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hayvan_Musteri">
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="MusteriID" />
+            </Principal>
+            <Dependent Role="Hayvan">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Randevular_Hayvan">
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="0..1" />
+          <End Role="Randevular" Type="Self.Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="Randevular">
+              <PropertyRef Name="HayvanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TedaviEkle_Hayvan">
+          <End Role="Hayvan" Type="Self.Hayvan" Multiplicity="0..1" />
+          <End Role="TedaviEkle" Type="Self.TedaviEkle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hayvan">
+              <PropertyRef Name="HayvanID" />
+            </Principal>
+            <Dependent Role="TedaviEkle">
+              <PropertyRef Name="HayvanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_Profil">
+          <End Role="Profil" Type="Self.Profil" Multiplicity="0..1" />
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HastaTakipEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AsiTakvimi" EntityType="Self.AsiTakvimi" />
+          <EntitySet Name="Hayvan" EntityType="Self.Hayvan" />
+          <EntitySet Name="Musteri" EntityType="Self.Musteri" />
+          <EntitySet Name="Profil" EntityType="Self.Profil" />
+          <EntitySet Name="Randevular" EntityType="Self.Randevular" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TedaviEkle" EntityType="Self.TedaviEkle" />
+          <AssociationSet Name="FK_AsiTakvimi_Hayvan" Association="Self.FK_AsiTakvimi_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="AsiTakvimi" EntitySet="AsiTakvimi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hayvan_Musteri" Association="Self.FK_Hayvan_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Hayvan" EntitySet="Hayvan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Randevular_Hayvan" Association="Self.FK_Randevular_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="Randevular" EntitySet="Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TedaviEkle_Hayvan" Association="Self.FK_TedaviEkle_Hayvan">
+            <End Role="Hayvan" EntitySet="Hayvan" />
+            <End Role="TedaviEkle" EntitySet="TedaviEkle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_Profil" Association="Self.FK_Musteri_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="Musteri" EntitySet="Musteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsiTakvimi_Profil" Association="HastaTakipModel.FK_AsiTakvimi_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="AsiTakvimi" EntitySet="AsiTakvimi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hayvan_Profil" Association="HastaTakipModel.FK_Hayvan_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="Hayvan" EntitySet="Hayvan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Randevular_Profil" Association="HastaTakipModel.FK_Randevular_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="Randevular" EntitySet="Randevular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TedaviEkle_Profil" Association="HastaTakipModel.FK_TedaviEkle_Profil">
+            <End Role="Profil" EntitySet="Profil" />
+            <End Role="TedaviEkle" EntitySet="TedaviEkle" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_AsiTakvimi_Profil">
+          <End Type="HastaTakipModel.Profil" Role="Profil" Multiplicity="0..1" />
+          <End Type="HastaTakipModel.AsiTakvimi" Role="AsiTakvimi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="AsiTakvimi">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hayvan_Profil">
+          <End Type="HastaTakipModel.Profil" Role="Profil" Multiplicity="0..1" />
+          <End Type="HastaTakipModel.Hayvan" Role="Hayvan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Hayvan">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Randevular_Profil">
+          <End Type="HastaTakipModel.Profil" Role="Profil" Multiplicity="0..1" />
+          <End Type="HastaTakipModel.Randevular" Role="Randevular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="Randevular">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TedaviEkle_Profil">
+          <End Type="HastaTakipModel.Profil" Role="Profil" Multiplicity="0..1" />
+          <End Type="HastaTakipModel.TedaviEkle" Role="TedaviEkle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profil">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TedaviEkle">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HastaTakipModelStoreContainer" CdmEntityContainer="HastaTakipEntities">
+          <EntitySetMapping Name="AsiTakvimi">
+            <EntityTypeMapping TypeName="HastaTakipModel.AsiTakvimi">
+              <MappingFragment StoreEntitySet="AsiTakvimi">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="AsiID" ColumnName="AsiID" />
+                <ScalarProperty Name="HayvanID" ColumnName="HayvanID" />
+                <ScalarProperty Name="YapilisTarihi" ColumnName="YapilisTarihi" />
+                <ScalarProperty Name="TekrarTarihi" ColumnName="TekrarTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hayvan">
+            <EntityTypeMapping TypeName="HastaTakipModel.Hayvan">
+              <MappingFragment StoreEntitySet="Hayvan">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="HayvanID" ColumnName="HayvanID" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="HayvanAdi" ColumnName="HayvanAdi" />
+                <ScalarProperty Name="HayvanTuru" ColumnName="HayvanTuru" />
+                <ScalarProperty Name="HayvanIrki" ColumnName="HayvanIrki" />
+                <ScalarProperty Name="Cinsiyeti" ColumnName="Cinsiyeti" />
+                <ScalarProperty Name="HayvanYasi" ColumnName="HayvanYasi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteri">
+            <EntityTypeMapping TypeName="HastaTakipModel.Musteri">
+              <MappingFragment StoreEntitySet="Musteri">
+                <ScalarProperty Name="MusteriSoyadi" ColumnName="MusteriSoyadi" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profil">
+            <EntityTypeMapping TypeName="HastaTakipModel.Profil">
+              <MappingFragment StoreEntitySet="Profil">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="KullaniciSoyad" ColumnName="KullaniciSoyad" />
+                <ScalarProperty Name="KullaniciMail" ColumnName="KullaniciMail" />
+                <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Randevular">
+            <EntityTypeMapping TypeName="HastaTakipModel.Randevular">
+              <MappingFragment StoreEntitySet="Randevular">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="RandevuID" ColumnName="RandevuID" />
+                <ScalarProperty Name="HayvanID" ColumnName="HayvanID" />
+                <ScalarProperty Name="RandevuTarihi" ColumnName="RandevuTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HastaTakipModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TedaviEkle">
+            <EntityTypeMapping TypeName="HastaTakipModel.TedaviEkle">
+              <MappingFragment StoreEntitySet="TedaviEkle">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="HastalikAdi" ColumnName="HastalikAdi" />
+                <ScalarProperty Name="TedaviID" ColumnName="TedaviID" />
+                <ScalarProperty Name="HayvanID" ColumnName="HayvanID" />
+                <ScalarProperty Name="UygulananTedavi" ColumnName="UygulananTedavi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

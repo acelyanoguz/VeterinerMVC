@@ -1,0 +1,49 @@
+﻿@using VeterinerMVC.Models.EntityFramework
+    @model VeterinerMVC.Models.EntityFramework.Hayvan
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+    <table class="table table-bordered">
+        <tr>
+            @*<th>Müşteri ID</th>*@
+            <th>Hayvan Adı</th>
+            <th>Hayvan Cinsiyeti</th>
+            <th>Hayvan Türü</th>
+            <th>Hayvan Irkı</th>
+            <th>Hayvan Yaşı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+    </tr>
+        <tbody>
+           
+            <tr>
+                @*<th>
+                    @Html.DisplayFor(m => m.MusteriID)
+                </th>*@
+                <th>
+                    @Html.DisplayFor(m => m.HayvanAdi)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => m.Cinsiyeti)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => m.HayvanTuru)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => m.HayvanIrki)
+                </th>
+                <th>
+                    @Html.DisplayFor(m => m.HayvanYasi)
+                </th>
+                <th><a href="/HastaKarti/Sil/@Html.DisplayFor(m=>m.HayvanID)" class="btn btn-danger">Sil</a></th>
+                <th><a href="/HastaKarti/HastaGetir/@Html.DisplayFor(m=>m.HayvanID)" class="btn btn-success">Güncelle</a></th>
+            </tr>
+                
+            </tbody>
+        </table>
+    <a href="/HastaEkle/YeniHasta/" class="btn btn-primary">Yeni Hasta Ekle</a>
+

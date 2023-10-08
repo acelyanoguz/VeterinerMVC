@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="get" action="/HastaKarti/Index/">
+    <div class="form-group">
+        <label for="sel1">Hasta Seçiniz:</label>
+        <select class="form-control" id="sel1" name="HayvanID" onchange="this.form.submit()">
+            <option selected>Hasta Seçiniz</option>
+            @foreach (var hasta in Model)
+
+            {
+                <option value="@hasta.HayvanID">[@hasta.HayvanID] - @hasta.HayvanAdi</option>
+            }
+        </select>
+        <br>
+    </div>
+</form>
+

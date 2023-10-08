@@ -1,0 +1,159 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Veteriner Hasta Takip</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+            background-color: #D6EAF8;
+            color: black;
+            height: 70px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+
+
+
+        .sidenav {
+            padding-top: 20px;
+            background-color: #EBF5FB;
+            height: 800px;
+        }
+
+
+        footer {
+            background-color: #D6EAF8;
+            padding: 5px;
+            font-family: sans-serif;
+            color: darkblue;
+        }
+
+
+        .row.content {height: 640px;
+        }
+
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+        }
+
+        .title {
+            color: grey;
+            font-size: 18px;
+        }
+
+       
+
+        a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+        }
+   
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Veteriner/AnaSayfa">Veteriner Hasta Takip Sistemi</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Veteriner/Anasayfa">AnaSayfa</a></li>
+                    <li><a href="/HastaEkle/YeniHasta">Hasta Ekle</a></li>
+                    <li><a href="/Hastalar/Index">Hasta Kartı</a></li>
+                    @if (Request.Params["HayvanID"] != "" && Request.Params["HayvanID"] != null)
+                    {
+                        <li><a href="/Randevu/Index?HayvanID=@Request.Params["HayvanID"]">Randevu</a></li>
+                        <li><a href="/Tedavi/Index?HayvanID=@Request.Params["HayvanID"]">Tedavi</a></li>
+                        <li><a href="/Asi/Index?HayvanID=@Request.Params["HayvanID"]">Aşı Takvimi</a></li>
+                    }
+
+
+
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="/Security/KullaniciInfo">
+                        @if (Session["adsoyad"] != null)
+                        {
+                            <text> @Session["adsoyad"].ToString() </text>
+                        }</a>
+                   </li>
+
+
+                    <li><a href="/Security/Logout"> Çıkış Yap</a></li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                
+
+                <form class="navbar-form navbar-left" action="/action_page.php">
+                    @*<div class="input-group">
+                        <input type="text" class="form-control" placeholder="Hasta Ara" name="ara"><br>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i> <br>
+                            </button>
+                        </div>
+                    </div>*@
+                    <br /> <br />
+                    <p><a href="/HastaEkle/YeniHasta" class="btn-info btn-lg btn btn-block ">Yeni Hasta Ekle</a></p>
+                    <br />
+                   <br />
+                    <a href="/Hastalar/Index" class="btn btn-block btn-lg btn-info " role="button">Hastalar</a>
+                    <br /> <br />
+                    <a href="https://www.haytap.org/" class="btn btn-info btn-lg btn-block ">Hayvan Hakları </a>
+                    <br />
+                    <br />
+                    <a href="  https://tvhb.org.tr/" class="btn btn-info btn-lg btn-block "> TVHB </a>
+                  
+                </form>
+              
+            </div>
+            <div class="col-sm-8 text-left">
+                <br /> 
+               
+               @RenderBody()
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <p>Yaradılanı Severiz Yaradandan Ötürü</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@model VeterinerMVC.Models.EntityFramework.Hayvan
+@{
+    ViewBag.Title = "HastaGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "HastaKarti", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.HayvanID)
+<div class="form-group">
+
+    <label for="m=>m.KullaniciAdi">Hayvan Adı</label>
+    @Html.TextBoxFor(m => m.HayvanAdi, new { @class = "form-control" })
+    <br />
+    <label for="m=>m.KullaniciAdi">Hayvan Türü</label>
+    @Html.TextBoxFor(m => m.HayvanTuru, new { @class = "form-control" })
+    <br />
+    <label for="m=>m.KullaniciAdi">Cinsiyeti</label>
+    @Html.TextBoxFor(m => m.Cinsiyeti, new { @class = "form-control" })
+    <br />
+    <label for="m=>m.KullaniciAdi">Hayvan Irkı</label>
+    @Html.TextBoxFor(m => m.HayvanIrki, new { @class = "form-control" })
+    <br />
+    <label for="m=>m.KullaniciAdi">Hayvan Yaşı</label>
+    @Html.TextBoxFor(m => m.HayvanYasi, new { @class = "form-control" })
+</div>
+    <div>
+        <button class="btn btn-warning">Hasta Güncelle</button>
+    </div>
+} 

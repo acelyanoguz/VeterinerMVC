@@ -1,0 +1,51 @@
+﻿@model VeterinerMVC.Models.EntityFramework.Profil
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+<body style="background-color:lightgray;">
+    <div class="container">
+
+        @using (Html.BeginForm("YeniUyelik", "Security", FormMethod.Post))
+        {
+            <BR /><br />
+            <h1>KAYIT SAYFASI</h1>
+        
+            <br /> <br /> <br />
+            <div class="form-group">
+                <label for="m=>m.KullaniciAdi">Kullanıcı Adı</label>
+                @Html.ValidationMessageFor(m => m.KullaniciAdi, "", new { @style="color:red"})
+                @Html.TextBoxFor(m => m.KullaniciAdi, new { @class = "form-control", placeholder = "kullanıcı adı" })
+            </div>
+            <div class="form-group">
+                <label for="m=>m.KullaniciSoyad">Kullanıcı Soyad</label>
+                @Html.TextBoxFor(m => m.KullaniciSoyad, new { @class = "form-control", placeholder = "kullanıcı soyadı" })
+                @Html.ValidationMessageFor(m => m.KullaniciSoyad, "", new { @style="color:red"})
+            </div>
+            <div class="form-group">
+                <label for="m=>m.KullaniciMail">Kullanıcı Mail</label>
+                @Html.TextBoxFor(m => m.KullaniciMail, new { @class = "form-control", placeholder = "kullanıcı mail" })
+                @Html.ValidationMessageFor(m => m.KullaniciMail, "", new { @style="color:red"})
+            </div>
+
+            <div class="form-group">
+                <label for="m=>m.KullaniciSifre">Kullanıcı Şifre</label>
+                @Html.PasswordFor(m => m.KullaniciSifre, new { @class = "form-control", placeholder = "parola" })
+                @Html.ValidationMessageFor(m => m.KullaniciSifre, "", new { @style="color:red"})
+            </div>
+            <button type="submit" class="btn btn-block btn-success">Kayıt Ol</button>
+            <br />
+            <a href="Login" class="btn btn-success">Giriş Yap</a>
+        }
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,25 @@
+﻿@model VeterinerMVC.Models.EntityFramework.TedaviEkle
+@{
+    ViewBag.Title = "YeniTedavi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+    
+    <div>
+        <label>Hastalık Adı</label>
+        @Html.TextBoxFor(m => m.HastalikAdi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.HastalikAdi, "", new { @style = "color:red" })
+        @Html.HiddenFor(m => m.HayvanID, new { @Value = Request.Params["HayvanID"] })
+        @Html.HiddenFor(m => m.KullaniciID, new { @Value = @Request.Params["KullaniciID"] })
+    </div>
+    <div>
+        <label>Uygulanan Tedavi</label>
+        @Html.TextBoxFor(m => m.UygulananTedavi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UygulananTedavi, "", new { @style = "color:red" })
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn-info">Tedavi Ekle</button>
+    </div>
+</form>
+

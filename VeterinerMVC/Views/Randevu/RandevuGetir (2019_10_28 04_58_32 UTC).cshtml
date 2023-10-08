@@ -1,0 +1,19 @@
+﻿@model VeterinerMVC.Models.EntityFramework.Randevular
+@{
+    ViewBag.Title = "RandevuGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Randevu", FormMethod.Post))
+{ <div class="form-group">
+        @Html.LabelFor(m => m.RandevuID)
+        @Html.TextBoxFor(m => m.RandevuID, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.RandevuTarihi)
+        @Html.TextBoxFor(m => m.RandevuTarihi, new { @class = "form-control" })
+    </div>
+    <div>
+        <button class="btn btn-warning">Randevu Güncelle</button>
+    </div>
+
+}

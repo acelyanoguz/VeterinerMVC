@@ -1,0 +1,23 @@
+﻿@model VeterinerMVC.Models.EntityFramework.TedaviEkle
+@{
+    ViewBag.Title = "TedaviGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Tedavi", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.TedaviID)
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.HastalikAdi)
+        @Html.TextBoxFor(m => m.HastalikAdi, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.UygulananTedavi)
+        @Html.TextBoxFor(m => m.UygulananTedavi, new { @class = "form-control" })
+    </div>
+    <div>
+        <button class="btn btn-warning">Tedavi Güncelle</button>
+    </div>
+}
+

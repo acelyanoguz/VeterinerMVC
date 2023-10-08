@@ -1,0 +1,24 @@
+﻿@model VeterinerMVC.Models.EntityFramework.Randevular
+@{
+    ViewBag.Title = "YeniRandevu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+
+   
+    <div>
+
+        <label>Randevu Tarihi</label>
+        @Html.TextBoxFor(m => m.RandevuTarihi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.RandevuTarihi, "", new { @style = "color:red" })
+
+        @Html.HiddenFor(m => m.HayvanID, new { @Value = @Request.Params["HayvanID"] })
+        @Html.HiddenFor(m => m.KullaniciID, new { @Value = @Request.Params["KullaniciID"] })
+
+    </div>
+    <div>
+        <button class="btn-info">Randevu Ekle</button>
+    </div>
+</form>
+

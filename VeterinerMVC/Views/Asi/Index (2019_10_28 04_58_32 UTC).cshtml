@@ -1,0 +1,30 @@
+﻿@using VeterinerMVC.Models.EntityFramework
+@model List<AsiTakvimi>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Aşı Yapılış Tarihi</th>
+        <th>Tekrar Tarihi</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var asilar in Model)
+        {
+            <tr>
+                <th>@asilar.YapilisTarihi</th>
+                <td>@asilar.TekrarTarihi</td>
+                <td><a href="/Asi/Sil/@asilar.AsiID" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Asi/AsiGetir/@asilar.AsiID" class="btn btn-success">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Asi/YeniAsi?HayvanID=@Request.Params["HayvanID"]" class="btn btn-primary">Yeni Aşı Ekle</a>
+
+
+

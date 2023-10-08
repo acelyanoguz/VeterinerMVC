@@ -1,0 +1,24 @@
+﻿@model VeterinerMVC.Models.EntityFramework.AsiTakvimi
+@{
+    ViewBag.Title = "YeniAsi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Aşı Yapılış Tarihi</label>
+        @Html.TextBoxFor(m => m.YapilisTarihi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.YapilisTarihi, "", new { @style = "color:red" })
+        @Html.HiddenFor(m => m.HayvanID, new { @Value = @Request.Params["HayvanID"] })
+        @Html.HiddenFor(m => m.KullaniciID, new { @Value = @Request.Params["KullaniciID"] })
+    </div>
+    <div>
+        <label>Tekrar Tarihi</label>
+        @Html.TextBoxFor(m => m.TekrarTarihi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TekrarTarihi, "", new { @style = "color:red" })
+    </div>
+        <div>
+            <button class="btn-info">Aşı Ekle</button>
+        </div>
+</form>
+

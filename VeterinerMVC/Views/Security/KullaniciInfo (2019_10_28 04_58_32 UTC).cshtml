@@ -1,0 +1,30 @@
+﻿@model VeterinerMVC.Models.EntityFramework.Profil
+@{
+    ViewBag.Title = "KullaniciInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Security", FormMethod.Post))
+{ @Html.HiddenFor(m=>m.KullaniciID)
+<div class="form-group">
+    <label for="m=>m.KullaniciAdi">Kullanıcı Adı</label>
+    @Html.TextBoxFor(m => m.KullaniciAdi, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m=>m.KullaniciAdi,"", new { @style="color:red"})
+    <br />
+    <label for="m=>m.KullaniciSoyad">Kullanıcı Soyad</label>
+    @Html.TextBoxFor(m => m.KullaniciSoyad, new { @class = "form-control" })
+    <br />
+    
+    <label for="m=>m.KullaniciMail">Kullanıcı Mail</label>
+    @Html.TextBoxFor(m => m.KullaniciMail, new { @class = "form-control" })
+    <br />
+    <label for="m=>m.KullaniciSifre">Kullanıcı Şifre</label>
+    @Html.PasswordFor(m=>m.KullaniciSifre, new { @class="form-control"})
+    @Html.ValidationMessageFor(m => m.KullaniciSifre, "", new {@style="color:red" })
+</div>
+    <div>
+        <button class="btn btn-warning">Güncelle</button>
+    </div>
+}
+
+
